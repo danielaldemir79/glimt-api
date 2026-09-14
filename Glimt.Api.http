@@ -1,0 +1,6 @@
+@Glimt.Api_HostAddress = https://localhost:7092
+
+GET {{Glimt.Api_HostAddress}}/api/MemoryEntries
+Accept: application/json
+
+###
