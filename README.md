@@ -51,8 +51,15 @@ dotnet tool install --global dotnet-ef --version 10.0.12
 ```http
 GET /api/MemoryEntries
 ```
-
 Endpointen hämtar alla minnen från databasen och sorterar dem från nyast till äldst. Om databasen är tom returneras en tom lista.
+
+### Skapa ett minne
+
+```http
+POST /api/MemoryEntries
+```
+
+POST tar emot ett minne som JSON, sparar det i databasen och returnerar det skapade minnet med status `201 Created`.
 
 ## Tekniska val
 

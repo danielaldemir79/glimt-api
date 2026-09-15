@@ -13,4 +13,12 @@ public class MemoryService(AppDbContext context) : IMemoryService
             .OrderByDescending(memory => memory.Date)
             .ToListAsync();
     }
+
+    public async Task<MemoryEntry> CreateAsync(MemoryEntry memory)
+    {
+        context.MemoryEntries.Add(memory);
+        await context.SaveChangesAsync();
+        return memory;
+    }
+    
 }

@@ -16,4 +16,12 @@ public class MemoryEntriesController(IMemoryService memoryService)
 
         return Ok(memories);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<MemoryEntry>> Create(MemoryEntry memory)
+    {
+        MemoryEntry createdMemory = await memoryService.CreateAsync(memory);
+
+        return StatusCode(201, createdMemory);
+    }
 }

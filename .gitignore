@@ -483,3 +483,5 @@ $RECYCLE.BIN/
 
 # Lokal SQLite-databas
 glimt.db
+glimt.db-shm
+glimt.db-wal

@@ -5,4 +5,5 @@ namespace Glimt.Api.Services;
 public interface IMemoryService
 {
     Task<List<MemoryEntry>> GetAllAsync();
+    Task<MemoryEntry> CreateAsync(MemoryEntry memory);
 }
