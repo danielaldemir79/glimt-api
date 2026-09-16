@@ -20,5 +20,24 @@ public class MemoryService(AppDbContext context) : IMemoryService
         await context.SaveChangesAsync();
         return memory;
     }
+
+    public async Task<MemoryEntry?> UpdateAsync(int id, MemoryEntry updatedMemory)
+    {
+        MemoryEntry? existingMemory = await context.MemoryEntries.FindAsync(id);
+
+        if (existingMemory is null)
+        {
+            return null;
+        }
+
+        existingMemory.Title = updatedMemory.Title;
+        existingMemory.Date = updatedMemory.Date;
+        existingMemory.Description = updatedMemory.Description;
+        existingMemory.ImagePath = updatedMemory.ImagePath;
+
+        await context.SaveChangesAsync();
+
+        return existingMemory;
+    }
     
 }

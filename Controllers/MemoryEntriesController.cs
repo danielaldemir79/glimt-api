@@ -24,4 +24,18 @@ public class MemoryEntriesController(IMemoryService memoryService)
 
         return StatusCode(201, createdMemory);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<MemoryEntry>> Update(int id, MemoryEntry updatedMemory)
+    {
+        MemoryEntry? memory =
+            await memoryService.UpdateAsync(id, updatedMemory);
+
+        if (memory is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(memory);
+    }
 }
