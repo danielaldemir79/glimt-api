@@ -1,6 +1,6 @@
 # Glimt API
 
-Det här är backenddelen till fotodagboken Glimt. API:t tar hand om minnesdata och sparar den i en lokal SQLite-databas.
+Det här är backenddelen till fotodagboken Glimt. API:t hanterar minnesdata och hämtar, skapar, uppdaterar och tar bort minnen i en lokal SQLite-databas.
 
 ## Teknik
 
@@ -29,6 +29,12 @@ Kommandot behövs för att webbläsaren och frontend ska kunna ansluta till det 
    dotnet restore
    ```
 
+Om `dotnet ef` inte finns installerat, installera verktyget:
+
+```bash
+dotnet tool install --global dotnet-ef --version 10.0.12
+```
+
 3. Skapa databasen:
 
    ```bash
@@ -47,13 +53,8 @@ Kommandot behövs för att webbläsaren och frontend ska kunna ansluta till det 
    https://localhost:7092/swagger
    ```
 
-Om `dotnet ef` inte finns installerat kan verktyget installeras med:
 
-```bash
-dotnet tool install --global dotnet-ef --version 10.0.12
-```
-
-## Endpoint
+## Endpoints
 
 ### Hämta alla minnen
 
@@ -90,9 +91,7 @@ DELETE tar bort ett befintligt minne och returnerar `204 No Content`. Om angivet
 
 ### HTTPS under utveckling
 
-ASP.NET Core mallen skapade både en HTTP profil och en HTTPS profil för backend. Eftersom HTTP profilen ligger först väljer vi HTTPS profilen uttryckligen med `dotnet run --launch-profile https`. HTTPS krypterar trafiken mellan frontend och API. 
-
-HTTPS profilen skyddar transporten men ger inte autentisering eller behörighetskontroll. I en produktionsmiljö hanteras HTTPS normalt av webbservern.
+ASP.NET Core mallen skapade separata profiler för HTTP och HTTPS. Frontend anropar `https://localhost:7092`, därför startar vi API:t med `dotnet run --launch-profile https`. HTTPS krypterar trafiken mellan frontend och API.
 
 ### SQLite
 
