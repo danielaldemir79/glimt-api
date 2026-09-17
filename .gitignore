@@ -485,3 +485,7 @@ $RECYCLE.BIN/
 glimt.db
 glimt.db-shm
 glimt.db-wal
+
+# Ignorerar uppladdade bilder men behåller uploadmappen vid kloning
+wwwroot/uploads/*
+!wwwroot/uploads/.gitkeep
