@@ -87,6 +87,14 @@ DELETE /api/MemoryEntries/{id}
 
 DELETE tar bort ett befintligt minne och returnerar `204 No Content`. Om angivet id saknas returneras `404 Not Found`.
 
+### Ladda upp en bild
+
+```http
+POST /api/Images
+```
+
+Endpointen tar emot en bild som `multipart/form-data`. JPG, JPEG, PNG och WEBP är tillåtna och bilden får vara högst 5 MB. Bilden sparas med ett unikt filnamn och endpointen returnerar bildens publika sökväg.
+
 ## Tekniska val
 
 ### HTTPS under utveckling
@@ -96,6 +104,10 @@ ASP.NET Core mallen skapade separata profiler för HTTP och HTTPS. Frontend anro
 ### SQLite
 
 Vi valde SQLite eftersom projektet ska köras lokalt och inte behöver en separat databasserver. Det gör projektet enklare att starta efter kloning. Samtidigt får vi en riktig relationsdatabas som fungerar tillsammans med Entity Framework Core och migrations.
+
+### Lagring av bilder
+
+Bildfilen sparas i `wwwroot/uploads`, medan databasen bara sparar bildens publika sökväg. Det håller databasen mindre och gör att webbläsaren kan hämta bilden som en statisk fil. Bilder får unika filnamn för att filer med samma ursprungliga namn inte ska skriva över varandra.
 
 ### Service och controller
 
