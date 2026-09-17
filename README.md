@@ -88,6 +88,12 @@ DELETE tar bort ett befintligt minne och returnerar `204 No Content`. Om angivet
 
 ## Tekniska val
 
+### HTTPS under utveckling
+
+ASP.NET Core mallen skapade både en HTTP profil och en HTTPS profil för backend. Eftersom HTTP profilen ligger först väljer vi HTTPS profilen uttryckligen med `dotnet run --launch-profile https`. HTTPS krypterar trafiken mellan frontend och API. 
+
+HTTPS profilen skyddar transporten men ger inte autentisering eller behörighetskontroll. I en produktionsmiljö hanteras HTTPS normalt av webbservern.
+
 ### SQLite
 
 Vi valde SQLite eftersom projektet ska köras lokalt och inte behöver en separat databasserver. Det gör projektet enklare att starta efter kloning. Samtidigt får vi en riktig relationsdatabas som fungerar tillsammans med Entity Framework Core och migrations.
