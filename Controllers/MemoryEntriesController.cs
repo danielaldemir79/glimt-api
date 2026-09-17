@@ -38,4 +38,17 @@ public class MemoryEntriesController(IMemoryService memoryService)
 
         return Ok(memory);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        bool deleted = await memoryService.DeleteAsync(id);
+
+        if (!deleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 }

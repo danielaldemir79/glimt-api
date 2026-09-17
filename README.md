@@ -13,6 +13,14 @@ Det här är backenddelen till fotodagboken Glimt. API:t tar hand om minnesdata 
 
 Du behöver ha .NET 10 SDK installerat.
 
+Om datorn inte redan litar på .NET:s utvecklingscertifikat, kör följande kommando en gång:
+
+```bash
+dotnet dev-certs https --trust
+```
+
+Kommandot behövs för att webbläsaren och frontend ska kunna ansluta till det lokala API:t via HTTPS.
+
 1. Öppna en terminal i backend repots rotmapp.
 
 2. Hämta projektets paket:
@@ -44,6 +52,7 @@ Om `dotnet ef` inte finns installerat kan verktyget installeras med:
 ```bash
 dotnet tool install --global dotnet-ef --version 10.0.12
 ```
+
 ## Endpoint
 
 ### Hämta alla minnen
@@ -60,6 +69,22 @@ POST /api/MemoryEntries
 ```
 
 POST tar emot ett minne som JSON, sparar det i databasen och returnerar det skapade minnet med status `201 Created`.
+
+### Uppdatera ett minne
+
+```http
+PUT /api/MemoryEntries/{id}
+```
+
+PUT uppdaterar ett befintligt minne och returnerar det uppdaterade minnet. Om angivet id saknas returneras `404 Not Found`.
+
+### Ta bort ett minne
+
+```http
+DELETE /api/MemoryEntries/{id}
+```
+
+DELETE tar bort ett befintligt minne och returnerar `204 No Content`. Om angivet id saknas returneras `404 Not Found`.
 
 ## Tekniska val
 

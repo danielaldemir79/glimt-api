@@ -39,5 +39,22 @@ public class MemoryService(AppDbContext context) : IMemoryService
 
         return existingMemory;
     }
+
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        MemoryEntry? memory =
+            await context.MemoryEntries.FindAsync(id);
+
+        if (memory is null)
+        {
+            return false;
+        }
+
+        context.MemoryEntries.Remove(memory);
+        await context.SaveChangesAsync();
+
+        return true;
+    }
     
 }
