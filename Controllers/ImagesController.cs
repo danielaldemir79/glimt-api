@@ -11,8 +11,13 @@ public class ImagesController(IWebHostEnvironment environment)
         [".jpg", ".jpeg", ".png", ".webp"];
     private const long MaxFileSize = 5 * 1024 * 1024;
 
+    /// <summary>
+    /// Laddar upp en bildfil
+    /// </summary>
     [HttpPost]
     [Consumes("multipart/form-data")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Upload(IFormFile image)
     {
         if (image.Length == 0)

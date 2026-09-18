@@ -1,6 +1,7 @@
 using Glimt.Api.Data;
 using Glimt.Api.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,22 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IMemoryService, MemoryService>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    string xmlPath = Path.Combine(
+        AppContext.BaseDirectory,
+        "Glimt.Api.xml");
+
+    options.IncludeXmlComments(xmlPath);
+
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Glimt API",
+        Version = "v1",
+        Description = "API för fotodagboken Glimt. Hanterar minnen och bilduppladdning."
+    });
+});
 
 var app = builder.Build();
 
