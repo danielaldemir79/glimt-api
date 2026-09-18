@@ -101,6 +101,14 @@ Endpointen tar emot en bild som `multipart/form-data`. JPG, JPEG, PNG och WEBP �
 
 ASP.NET Core mallen skapade separata profiler för HTTP och HTTPS. Frontend anropar `https://localhost:7092`, därför startar vi API:t med `dotnet run --launch-profile https`. HTTPS krypterar trafiken mellan frontend och API.
 
+### CORS
+
+Frontend och backend körs på olika portar under utveckling. Därför används en CORS policy som tillåter anrop från frontend på `http://localhost:5173`. Policyn är begränsad till den adress som frontend använder.
+
+### Swagger och API-dokumentation
+
+Swagger används för att dokumentera och testa API:ets endpoints under utvecklingen. XML kommentarer i controllers visas i Swagger så att det blir tydligare vad varje endpoint gör och vilka svar den kan returnera.
+
 ### SQLite
 
 Vi valde SQLite eftersom projektet ska köras lokalt och inte behöver en separat databasserver. Det gör projektet enklare att starta efter kloning. Samtidigt får vi en riktig relationsdatabas som fungerar tillsammans med Entity Framework Core och migrations.
