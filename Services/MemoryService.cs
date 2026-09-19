@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Glimt.Api.Services;
 
-public class MemoryService(AppDbContext context) : IMemoryService
+public class MemoryService(AppDbContext context, IWebHostEnvironment environment) : IMemoryService
 {
     public async Task<List<MemoryEntry>> GetAllAsync()
     {
@@ -51,8 +51,26 @@ public class MemoryService(AppDbContext context) : IMemoryService
             return false;
         }
 
+        string? imageFilePath = null;
+
+        if (!string.IsNullOrEmpty(memory.ImagePath))
+        {
+            string fileName = Path.GetFileName(memory.ImagePath);
+
+            imageFilePath = Path.Combine(
+                environment.ContentRootPath,
+                "wwwroot",
+                "uploads",
+                fileName);
+        }
+
         context.MemoryEntries.Remove(memory);
         await context.SaveChangesAsync();
+
+        if (imageFilePath is not null && File.Exists(imageFilePath))
+        {
+            File.Delete(imageFilePath);
+        }
 
         return true;
     }

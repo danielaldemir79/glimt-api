@@ -117,6 +117,8 @@ Vi valde SQLite eftersom projektet ska köras lokalt och inte behöver en separa
 
 Bildfilen sparas i `wwwroot/uploads`, medan databasen bara sparar bildens publika sökväg. Det håller databasen mindre och gör att webbläsaren kan hämta bilden som en statisk fil. Bilder får unika filnamn för att filer med samma ursprungliga namn inte ska skriva över varandra.
 
+När ett minne raderas tas även den tillhörande bildfilen bort från `wwwroot/uploads`. Bildens filnamn hämtas från den sparade sökvägen och filen raderas först efter att minnet har tagits bort från databasen. Om minnet saknar bild eller om bildfilen redan är borttagen fortsätter raderingen utan fel.
+
 ### Service och controller
 
 Controllern hanterar HTTP anrop och returnerar HTTP-svar. Databaslogiken ligger i en separat service. Det håller controllern tunn och ger koden tydliga ansvarsområden.
